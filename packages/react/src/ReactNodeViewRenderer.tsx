@@ -49,6 +49,10 @@ export interface ReactNodeViewRendererOptions extends NodeViewRendererOptions {
   attrs?:
     | Record<string, string>
     | ((props: { node: ProseMirrorNode; HTMLAttributes: Record<string, any> }) => Record<string, string>)
+  /**
+   * The class names to add to the node view content DOM element.
+   */
+  contentDOMElementClassName?: string
 }
 
 export class ReactNodeView<
@@ -84,6 +88,7 @@ export class ReactNodeView<
       // With this fix it seems to work fine
       // See: https://github.com/ueberdosis/tiptap/issues/1197
       this.contentDOMElement.style.whiteSpace = 'inherit'
+      this.contentDOMElement.className = options?.contentDOMElementClassName || ''
 
       const contentTarget = this.dom.querySelector('[data-node-view-content]')
 
